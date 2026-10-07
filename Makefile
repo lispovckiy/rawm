@@ -4,6 +4,7 @@ LD = ld
 TARGET = rawm
 SOURCE = rawm.asm
 OBJECT = rawm.o
+DEPS   = $(wildcard src/*.asm src/*.inc)
 
 NASMFLAGS = -f elf64 -Wall -w-reloc-rel-dword
 LDFLAGS = -m elf_x86_64
@@ -15,7 +16,7 @@ all: $(TARGET)
 $(TARGET): $(OBJECT)
 	$(LD) $(LDFLAGS) -o $@ $^
 
-$(OBJECT): $(SOURCE)
+$(OBJECT): $(SOURCE) $(DEPS)
 	$(NASM) $(NASMFLAGS) -o $@ $<
 
 clean:

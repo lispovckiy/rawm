@@ -25,4 +25,24 @@ Run `rawm` from an X11 session without another window manager active. The termin
 
 ## Configuration
 
-Key bindings, colors, gaps, and launch commands are defined near the beginning of `rawm.asm`.
+Colors, gaps and other constants are in `src/config.inc`. Key bindings and launch commands are in `src/data.inc`.
+
+## Source layout
+
+- `rawm.asm` - entry file that includes all modules
+- `src/config.inc` - constants
+- `src/data.inc` - initialized data, key table, strings
+- `src/bss.inc` - uninitialized data
+- `src/x11.asm` - socket I/O and request helpers
+- `src/reply.asm` - reply waiting and property reading
+- `src/auth.asm` - Xauthority lookup
+- `src/node.asm`, `src/layout.asm`, `src/tree.asm` - BSP tree and layout
+- `src/focus.asm` - focus handling
+- `src/keys.asm` - key grabbing
+- `src/spawn.asm` - process spawning
+- `src/actions.asm` - key actions
+- `src/tags.asm` - tags (workspaces)
+- `src/ewmh.asm` - EWMH properties and fullscreen
+- `src/float.asm` - floating windows
+- `src/events.asm` - event handling
+- `src/main.asm` - startup and error paths
