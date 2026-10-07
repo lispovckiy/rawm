@@ -16,8 +16,7 @@
 Requires NASM and a Linux x86-64 system with X11.
 
 ```sh
-nasm -f elf64 rawm.asm -o rawm.o
-ld rawm.o -o rawm
+sudo make
 ```
 
 ## Run
