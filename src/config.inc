@@ -35,6 +35,9 @@ A_SWAPP     equ 11
 A_FULL      equ 12
 A_KILL      equ 13
 A_SHOT      equ 14
+A_VOLUP     equ 25
+A_VOLDN     equ 26
+A_MUTE      equ 27
 
 NTAGS       equ 9
 FLN         equ 16

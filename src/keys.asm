@@ -7,7 +7,6 @@ grab_keys:
     mov r12d, KEYS_N
 .key:
     movzx r13d, byte [rbx+1]
-    add r13d, MODK
     xor r14d, r14d
 .var:
     lea rdx, [lockvars]

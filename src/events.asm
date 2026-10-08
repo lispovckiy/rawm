@@ -252,7 +252,6 @@ handle_event:
     cmp cl, [rsi]
     jne .kn
     movzx eax, byte [rsi+1]
-    add eax, MODK
     cmp eax, edx
     jne .kn
     movzx eax, byte [rsi+2]
@@ -272,21 +271,42 @@ handle_event:
 .nomv:
     cmp eax, 16
     jb .chain
+    cmp eax, 25
+    jae .chain
     sub eax, 16
     mov edi, eax
     call switch_tag
     jmp .evdone
+
 .chain:
     cmp eax, A_SHOT
-    jne .a_term
+    jne .a_vup
     lea rdi, [cmd_shot]
     call spawn
     jmp .evdone
-
 .a_term:
     cmp eax, A_TERM
     jne .a1
     lea rdi, [cmd_term]
+    call spawn
+    jmp .evdone
+
+.a_vup:
+    cmp eax, A_VOLUP
+    jne .a_vdn
+    lea rdi, [cmd_volup]
+    call spawn
+    jmp .evdone
+.a_vdn:
+    cmp eax, A_VOLDN
+    jne .a_mute
+    lea rdi, [cmd_voldn]
+    call spawn
+    jmp .evdone
+.a_mute:
+    cmp eax, A_MUTE
+    jne .a_term
+    lea rdi, [cmd_mute]
     call spawn
     jmp .evdone
 

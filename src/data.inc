@@ -13,44 +13,50 @@ sockaddr:
 SOCKADDR_LEN equ $ - sockaddr
 
 keytab:
-    db 36, 0, A_TERM
-    db 24, 0, A_CLOSE
-    db 44, 0, A_NEXT
-    db 45, 0, A_PREV
-    db 43, 0, A_SHRINK
-    db 46, 0, A_GROW
-    db 65, 0, A_FLIP
-    db 40, 0, A_DMENU
-    db 21, 0, A_BALANCE
-    db 44, 1, A_SWAPN
-    db 45, 1, A_SWAPP
-    db 26, 1, A_QUIT
-    db 24, 1, A_KILL
-    db 41, 0, A_FULL
-    db 39, 0, A_SHOT
-    db 10, 0, 16+0
-    db 11, 0, 16+1
-    db 12, 0, 16+2
-    db 13, 0, 16+3
-    db 14, 0, 16+4
-    db 15, 0, 16+5
-    db 16, 0, 16+6
-    db 17, 0, 16+7
-    db 18, 0, 16+8
-    db 10, 1, 32+0
-    db 11, 1, 32+1
-    db 12, 1, 32+2
-    db 13, 1, 32+3
-    db 14, 1, 32+4
-    db 15, 1, 32+5
-    db 16, 1, 32+6
-    db 17, 1, 32+7
-    db 18, 1, 32+8
+    db 36, MODK, A_TERM
+    db 24, MODK, A_CLOSE
+    db 44, MODK, A_NEXT
+    db 45, MODK, A_PREV
+    db 43, MODK, A_SHRINK
+    db 46, MODK, A_GROW
+    db 65, MODK, A_FLIP
+    db 40, MODK, A_DMENU
+    db 21, MODK, A_BALANCE
+    db 44, MODK+1, A_SWAPN
+    db 45, MODK+1, A_SWAPP
+    db 26, MODK+1, A_QUIT
+    db 24, MODK+1, A_KILL
+    db 41, MODK, A_FULL
+    db 39, MODK, A_SHOT
+    db 123, 0, A_VOLUP
+    db 122, 0, A_VOLDN
+    db 121, 0, A_MUTE
+    db 10, MODK, 16+0
+    db 11, MODK, 16+1
+    db 12, MODK, 16+2
+    db 13, MODK, 16+3
+    db 14, MODK, 16+4
+    db 15, MODK, 16+5
+    db 16, MODK, 16+6
+    db 17, MODK, 16+7
+    db 18, MODK, 16+8
+    db 10, MODK+1, 32+0
+    db 11, MODK+1, 32+1
+    db 12, MODK+1, 32+2
+    db 13, MODK+1, 32+3
+    db 14, MODK+1, 32+4
+    db 15, MODK+1, 32+5
+    db 16, MODK+1, 32+6
+    db 17, MODK+1, 32+7
+    db 18, MODK+1, 32+8
 KEYS_N equ ($ - keytab) / 3
 
 lockvars:   dw 0, 0x02, 0x10, 0x12
 
 cmd_shot    db "scrot ~/Pictures/%Y-%m-%d_%H%M%S.png", 0
+cmd_volup   db "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+", 0
+cmd_voldn   db "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-", 0
+cmd_mute    db "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle", 0
 cmd_term    db "ghostty", 0
 cmd_menu    db "dmenu_run", 0
 sh_path     db "/bin/sh", 0
