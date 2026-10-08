@@ -7,7 +7,7 @@ OBJECT = rawm.o
 DEPS   = $(wildcard src/*.asm src/*.inc)
 
 NASMFLAGS = -f elf64 -Wall -w-reloc-rel-dword
-LDFLAGS = -m elf_x86_64
+LDFLAGS = -m elf_x86_64 -z noseparate-code -s
 
 .PHONY: all clean
 
