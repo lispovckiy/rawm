@@ -14,13 +14,15 @@ OUTER_GAP   equ 12
 COL_FOC     equ 0x88c0d0
 COL_UNFOC   equ 0x3b4252
 ENTER_MASK  equ 0x10
+SHIFT       equ 0x01
+CTRL        equ 0x04
 MODK        equ 0x08
+SUPER       equ 0x40
 RESIZE_STEP equ 50
 SYS_FORK    equ 57
 SYS_EXECVE  equ 59
 SYS_SIGACT  equ 13
 
-A_TERM      equ 0
 A_CLOSE     equ 1
 A_NEXT      equ 2
 A_PREV      equ 3
@@ -28,18 +30,16 @@ A_SHRINK    equ 4
 A_GROW      equ 5
 A_FLIP      equ 6
 A_QUIT      equ 7
-A_DMENU     equ 8
 A_BALANCE   equ 9
 A_SWAPN     equ 10
 A_SWAPP     equ 11
 A_FULL      equ 12
 A_KILL      equ 13
-A_SHOT      equ 14
-A_VOLUP     equ 25
-A_VOLDN     equ 26
-A_MUTE      equ 27
+A_TAG       equ 16
+A_MOVE      equ 32
+A_CMD       equ 64
 
-NTAGS       equ 9
+%assign NTAGS 9
 FLN         equ 16
 
 FL_FS       equ 0x100

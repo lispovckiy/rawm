@@ -30,7 +30,14 @@ grab_keys:
     inc r14d
     cmp r14d, 4
     jb .var
-    add rbx, 3
+    cmp byte [rbx+2], A_CMD
+    lea rbx, [rbx+3]
+    jne .next
+.skip:
+    cmp byte [rbx], 0
+    lea rbx, [rbx+1]
+    jne .skip
+.next:
     dec r12d
     jnz .key
     pop r14

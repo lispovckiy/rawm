@@ -257,60 +257,38 @@ handle_event:
     movzx eax, byte [rsi+2]
     jmp .act
 .kn:
-    add rsi, 3
+    cmp byte [rsi+2], A_CMD
+    lea rsi, [rsi+3]
+    jne .kc
+.ksk:
+    lodsb
+    test al, al
+    jnz .ksk
+.kc:
     dec edi
     jnz .ks
     jmp .evdone
 .act:
-    cmp eax, 32
+    cmp eax, A_CMD
+    jne .nocmd
+    lea rdi, [rsi+3]
+    call spawn
+    jmp .evdone
+.nocmd:
+    cmp eax, A_MOVE
     jb .nomv
-    sub eax, 32
+    sub eax, A_MOVE
     mov edi, eax
     call move_to_tag
     jmp .evdone
 .nomv:
-    cmp eax, 16
+    cmp eax, A_TAG
     jb .chain
-    cmp eax, 25
-    jae .chain
-    sub eax, 16
+    sub eax, A_TAG
     mov edi, eax
     call switch_tag
     jmp .evdone
-
 .chain:
-    cmp eax, A_SHOT
-    jne .a_vup
-    lea rdi, [cmd_shot]
-    call spawn
-    jmp .evdone
-.a_term:
-    cmp eax, A_TERM
-    jne .a1
-    lea rdi, [cmd_term]
-    call spawn
-    jmp .evdone
-
-.a_vup:
-    cmp eax, A_VOLUP
-    jne .a_vdn
-    lea rdi, [cmd_volup]
-    call spawn
-    jmp .evdone
-.a_vdn:
-    cmp eax, A_VOLDN
-    jne .a_mute
-    lea rdi, [cmd_voldn]
-    call spawn
-    jmp .evdone
-.a_mute:
-    cmp eax, A_MUTE
-    jne .a_term
-    lea rdi, [cmd_mute]
-    call spawn
-    jmp .evdone
-
-.a1:
     cmp eax, A_CLOSE
     jne .a2
     call close_focused
@@ -341,14 +319,8 @@ handle_event:
     jmp .evdone
 .a6:
     cmp eax, A_FLIP
-    jne .a7
-    call flip_parent
-    jmp .evdone
-.a7:
-    cmp eax, A_DMENU
     jne .a8
-    lea rdi, [cmd_menu]
-    call spawn
+    call flip_parent
     jmp .evdone
 .a8:
     cmp eax, A_BALANCE
